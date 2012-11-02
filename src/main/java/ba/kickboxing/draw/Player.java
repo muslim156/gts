@@ -5,56 +5,34 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
-	private String name;
+	private String nameSurname;
 	private Discipline discipline;
-	private int weight;
+	private WeightCategory weight;
+	private AgeCategory ageCategory;
 	private Sex sex;
 
-	public Player(String name, Discipline discipline, int weight, Sex sex) {
+	private String clubName;
+
+	public Player(String nameSurname, Discipline discipline, WeightCategory weight, AgeCategory ageCategory, Sex sex, String clubName) {
 		super();
-		this.name = name;
+		this.nameSurname = nameSurname;
 		this.discipline = discipline;
 		this.weight = weight;
+		this.ageCategory = ageCategory;
 		this.sex = sex;
+		this.clubName = clubName;
 	}
-
-	public String getName() {
-		return name;
+	
+	@Override
+	public String toString() {	
+		return nameSurname + "|" + discipline + "|" + weight + "|" + ageCategory + "|" + sex + "|" + clubName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Discipline getDiscipline() {
-		return discipline;
-	}
-
-	public void setDiscipline(Discipline discipline) {
-		this.discipline = discipline;
-	}
-
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
-	public Sex getSex() {
-		return sex;
-	}
-
-	public void setSex(Sex sex) {
-		this.sex = sex;
-	}
-
+	
 	public Map<String, Object> getDataMap() {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		
+
 		Field[] fields = this.getClass().getDeclaredFields();
-		
+
 		for (Field field : fields) {
 			try {
 				dataMap.put(field.getName(), field.get(this));
@@ -66,7 +44,55 @@ public class Player {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return dataMap;
+	}
+
+	public String getNameSurname() {
+		return nameSurname;
+	}
+
+	public void setNameSurname(String nameSurname) {
+		this.nameSurname = nameSurname;
+	}
+
+	public Discipline getDiscipline() {
+		return discipline;
+	}
+
+	public void setDiscipline(Discipline discipline) {
+		this.discipline = discipline;
+	}
+
+	public WeightCategory getWeight() {
+		return weight;
+	}
+
+	public void setWeight(WeightCategory weight) {
+		this.weight = weight;
+	}
+
+	public AgeCategory getAgeCategory() {
+		return ageCategory;
+	}
+
+	public void setAgeCategory(AgeCategory ageCategory) {
+		this.ageCategory = ageCategory;
+	}
+
+	public Sex getSex() {
+		return sex;
+	}
+
+	public void setSex(Sex sex) {
+		this.sex = sex;
+	}
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
 	}
 }

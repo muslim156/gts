@@ -48,7 +48,7 @@ public class IO {
 			weight = Integer.valueOf(splitted[2]);
 			sex = Sex.valueOf(splitted[3].toUpperCase());
 			
-			player = new Player(name, disc, weight, sex);
+			player = new Player(null, null, null, null, null, null);
 			players.add(player);
 		}
 

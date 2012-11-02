@@ -3,42 +3,46 @@ package ba.kickboxing.draw;
 public class TournamentKey {
 
 	private Discipline discipline;
-	private int weight;
+	private WeightCategory weightCategory;
+	private AgeCategory ageCategory;
 	private Sex sex;
 
-	public TournamentKey(Discipline discipline, int weight, Sex sex) {
+	public TournamentKey(Discipline discipline, AgeCategory ageCategory, WeightCategory weight, Sex sex) {
 		super();
 		this.discipline = discipline;
-		this.weight = weight;
+		this.weightCategory = weight;
+		this.ageCategory = ageCategory;
 		this.sex = sex;
 	}
 
 	@Override
-	public String toString() {	
-		return this.discipline + " - " + this.weight + " - " + this.sex;
+	public String toString() {
+		return this.discipline + " - " + this.weightCategory + " - " + this.sex;
 	}
-	
+
 	@Override
-	public boolean equals(Object obj) {	
+	public boolean equals(Object obj) {
 		if (obj instanceof TournamentKey) {
 			TournamentKey otherKey = (TournamentKey) obj;
-			
-			if (this.discipline.equals(otherKey.getDiscipline()) 
-					&& this.weight == otherKey.getWeight()
+
+			if (this.discipline.equals(otherKey.getDiscipline())
+					&& this.weightCategory.equals(otherKey.getWeightCategory())
+					&& this.ageCategory.equals(otherKey.getAgeCategory())
 					&& this.sex.equals(otherKey.getSex())) {
-				
+
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return (discipline.toString() + weight + sex.toString()).hashCode();
+		return (discipline.toString() + weightCategory.toString() + sex
+				.toString()).hashCode();
 	}
-	
+
 	public Discipline getDiscipline() {
 		return discipline;
 	}
@@ -47,12 +51,20 @@ public class TournamentKey {
 		this.discipline = discipline;
 	}
 
-	public int getWeight() {
-		return weight;
+	public WeightCategory getWeightCategory() {
+		return weightCategory;
 	}
 
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public void setWeightCategory(WeightCategory weightCategory) {
+		this.weightCategory = weightCategory;
+	}
+
+	public AgeCategory getAgeCategory() {
+		return ageCategory;
+	}
+
+	public void setAgeCategory(AgeCategory ageCategory) {
+		this.ageCategory = ageCategory;
 	}
 
 	public Sex getSex() {

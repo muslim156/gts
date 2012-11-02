@@ -3,11 +3,9 @@ package ba.kickboxing.draw;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Drawing {
 	private List<Player> players;	
@@ -25,7 +23,7 @@ public class Drawing {
 		for (Iterator<Player> iterator = players.iterator(); iterator.hasNext();) {
 			Player player = (Player) iterator.next();
 			
-			TournamentKey key = new TournamentKey(player.getDiscipline(), player.getWeight(), player.getSex());
+			TournamentKey key = new TournamentKey(player.getDiscipline(), player.getAgeCategory(), player.getWeight(), player.getSex());
 
 			if (categoryMap.containsKey(key)) {
 				categoryMap.get(key).add(player);
