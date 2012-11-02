@@ -35,8 +35,10 @@ public class IO {
 
 		String name = null;
 		Discipline disc = null;
-		int weight = 0;
+		WeightCategory weightCategory = null;
+		AgeCategory ageCategory = null;
 		Sex sex = null;
+		String clubName = null;
 
 		Player player = null;
 
@@ -45,10 +47,12 @@ public class IO {
 
 			name = splitted[0];
 			disc = Discipline.valueOf(splitted[1].toUpperCase());
-			weight = Integer.valueOf(splitted[2]);
-			sex = Sex.valueOf(splitted[3].toUpperCase());
+			weightCategory = WeightCategory.valueOf(splitted[2].toUpperCase());
+			ageCategory = AgeCategory.valueOf(splitted[3].toUpperCase());			
+			sex = Sex.valueOf(splitted[4].toUpperCase());
+			clubName = splitted[5];
 			
-			player = new Player(null, null, null, null, null, null);
+			player = new Player(name, disc, weightCategory, ageCategory, sex, clubName);
 			players.add(player);
 		}
 

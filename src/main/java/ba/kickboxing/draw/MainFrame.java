@@ -2,6 +2,11 @@ package ba.kickboxing.draw;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
+import jxl.write.WriteException;
 
 /**
 *
@@ -54,6 +59,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	        jRadioButton2 = new javax.swing.JRadioButton();
 	        jRadioButton3 = new javax.swing.JRadioButton();
 	        jLabel6 = new javax.swing.JLabel();
+	        jButton3 = new javax.swing.JButton();
 	        jMenuBar2 = new javax.swing.JMenuBar();
 	        jMenu3 = new javax.swing.JMenu();
 	        jMenuItem1 = new javax.swing.JMenuItem();
@@ -77,7 +83,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	        jLabel3.setText("Težišna kategorija");
 
-	        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-81", "+84" }));
+	        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-81", "+81" }));
 
 	        jLabel4.setText("Uzrast");
 
@@ -99,6 +105,9 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	        jRadioButton3.setText("Ženski");
 
 	        jLabel6.setText("Spol");
+
+	        jButton3.setText("Generiši žrijeb!");
+	        jButton3.addActionListener(this);
 
 	        jMenu3.setText("Akcije");
 
@@ -126,29 +135,34 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                    .addGroup(layout.createSequentialGroup()
 	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                            .addComponent(jLabel1)
-	                            .addComponent(jLabel2)
-	                            .addComponent(jLabel3)
-	                            .addComponent(jLabel4)
-	                            .addComponent(jLabel5)
-	                            .addComponent(jLabel6))
-	                        .addGap(41, 41, 41)
-	                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-	                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 	                            .addGroup(layout.createSequentialGroup()
-	                                .addGap(128, 128, 128)
-	                                .addComponent(jRadioButton3))
-	                            .addComponent(jRadioButton2))
-	                        .addGap(0, 0, Short.MAX_VALUE))
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(jLabel1)
+	                                    .addComponent(jLabel2)
+	                                    .addComponent(jLabel3)
+	                                    .addComponent(jLabel4)
+	                                    .addComponent(jLabel5)
+	                                    .addComponent(jLabel6))
+	                                .addGap(41, 41, 41)
+	                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                    .addGroup(layout.createSequentialGroup()
+	                                        .addGap(128, 128, 128)
+	                                        .addComponent(jRadioButton3))
+	                                    .addComponent(jRadioButton2))
+	                                .addGap(0, 0, Short.MAX_VALUE))
+	                            .addGroup(layout.createSequentialGroup()
+	                                .addComponent(jButton1)
+	                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addComponent(jButton2)))
+	                        .addContainerGap())
 	                    .addGroup(layout.createSequentialGroup()
-	                        .addComponent(jButton1)
-	                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                        .addComponent(jButton2)))
-	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	                        .addComponent(jButton3)
+	                        .addContainerGap())))
 	        );
 	        layout.setVerticalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +199,9 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 	                    .addComponent(jButton1)
 	                    .addComponent(jButton2))
-	                .addContainerGap(85, Short.MAX_VALUE))
+	                .addGap(18, 18, 18)
+	                .addComponent(jButton3)
+	                .addContainerGap(44, Short.MAX_VALUE))
 	        );
 
 	        pack();
@@ -195,10 +211,57 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
        // TODO add your handling code here:
    }
 
+   @Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == jButton1) {
+			try {
+				savePlayer();
+				showMessage("Učesnik uspješno dodat!", true);
+			} catch (Exception ex) {
+				showMessage("Desila se greška prilikom dodavanja učesnika:\n" + ex.getMessage(), false);
+			}
+			
+		} else if (e.getSource() == jButton3) {
+			try {
+				draw();
+				showMessage("Žrijeb uspješno generisan!", true);
+			} catch (Exception ex) {
+				showMessage("Desila se greška prilikom generisanja žrijeba:\n" + ex.getMessage(), false);
+			}
+		}
+	}
+
+	private void draw() throws WriteException, IOException {
+		tournamentManager.drawAndSave("zrijeb.xls");
+	}
+
+	private void showMessage(String message, boolean isSuccessMsg) {
+		JOptionPane.showMessageDialog(this, message, 
+				isSuccessMsg ? "Uspjeh" : "Greška", 
+				isSuccessMsg ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
+	}
+
+
+
+	private void savePlayer() {
+		String nameSurname = jTextField1.getText();
+		String discipline = (String) jComboBox1.getSelectedItem();
+		String weightCategory = (String) jComboBox2.getSelectedItem();
+		String ageCategory = (String) jComboBox3.getSelectedItem();
+		String clubName = jTextField2.getText();		
+		Sex s = jRadioButton2.isSelected() ? Sex.M : Sex.F;
+		
+		Player p = new Player(nameSurname, Discipline.getEnum(discipline.toUpperCase()), 
+				WeightCategory.getEnum(weightCategory), AgeCategory.getEnum(ageCategory.toUpperCase()), s, clubName);
+		tournamentManager.savePlayer(p);
+		
+	}
+	
 	// Variables declaration - do not modify
 	private javax.swing.ButtonGroup buttonGroup1;
 	private javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton2;
+	private javax.swing.JButton jButton3;
 	private javax.swing.JComboBox jComboBox1;
 	private javax.swing.JComboBox jComboBox2;
 	private javax.swing.JComboBox jComboBox3;
@@ -219,26 +282,6 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	private javax.swing.JRadioButton jRadioButton3;
 	private javax.swing.JTextField jTextField1;
 	private javax.swing.JTextField jTextField2;
-
 	// End of variables declaration
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == jButton1) {
-			savePlayer();
-		}
-	}
-
-	private void savePlayer() {
-		String nameSurname = jTextField1.getText();
-		String discipline = (String) jComboBox1.getSelectedItem();
-		String weightCategory = (String) jComboBox2.getSelectedItem();
-		String ageCategory = (String) jComboBox3.getSelectedItem();
-		String clubName = jTextField2.getText();		
-		Sex s = jRadioButton2.isSelected() ? Sex.M : Sex.F;
-		
-		Player p = new Player(nameSurname, Discipline.getEnum(discipline.toUpperCase()), 
-				WeightCategory.getEnum(weightCategory), AgeCategory.getEnum(ageCategory.toUpperCase()), s, clubName);
-		tournamentManager.savePlayer(p);
-		
-	}
+	
 }

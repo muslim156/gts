@@ -8,7 +8,7 @@ public class EntryPoint {
 		setLookAndFeel();
 
 		// new UI();
-		new MainFrame(new TournamentManagerImpl(new FileDao("test-dao.txt")));
+		new MainFrame(new TournamentManagerImpl(new FileDao("test-dao.txt", true)));
 
 	}
 
