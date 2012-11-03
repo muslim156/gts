@@ -1,14 +1,16 @@
 package ba.kickboxing.draw.business;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 
 import jxl.write.WriteException;
-
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.persistence.DAO;
-import ba.kickboxing.draw.persistence.IO;
 
 public class TournamentManagerImpl implements TournamentManager {
 
@@ -44,7 +46,12 @@ public class TournamentManagerImpl implements TournamentManager {
 		Drawing drawing = new Drawing(allPlayers);
 		drawing.draw();
 
-		IO.writeToXls(outputFilePath, drawing.getCategoryMap());
+		//TODO use template XLS to fill in data we have
+		Path source = Paths.get("src/main/resources/turnir.xls");
+		Path target = Paths.get("turnir.xls");
+		Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+		
+		// IO.writeToXls(outputFilePath, drawing.getCategoryMap());
 	}
 
 }
