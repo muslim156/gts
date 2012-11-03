@@ -6,8 +6,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 
-import ba.kickboxing.draw.IO;
-import ba.kickboxing.draw.Player;
+import ba.kickboxing.draw.common.Player;
 
 public class FileDao implements DAO {
 

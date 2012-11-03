@@ -1,4 +1,4 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.common;
 
 public class TournamentKey {
 
@@ -17,7 +17,10 @@ public class TournamentKey {
 
 	@Override
 	public String toString() {
-		return this.discipline + " - " + this.weightCategory + " - " + this.sex;
+		return this.discipline.getCustomValue() + " | " 
+				+ this.ageCategory.getCustomValue() + " | "
+				+ this.weightCategory.getCustomValue() + " | " 
+				+ this.sex;
 	}
 
 	@Override

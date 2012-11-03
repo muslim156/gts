@@ -1,14 +1,18 @@
 package ba.kickboxing.draw;
 
+import ba.kickboxing.draw.business.TournamentManagerImpl;
 import ba.kickboxing.draw.persistence.FileDao;
+import ba.kickboxing.draw.ui.MainFrame;
 
 
 public class EntryPoint {
+	private static final String APPLICATION_STORAGE_PATH = "test-dao.gts";
+	
 	public static void main(String[] args) throws Exception {
 		setLookAndFeel();
 
 		// new UI();
-		new MainFrame(new TournamentManagerImpl(new FileDao("test-dao.txt", true)));
+		new MainFrame(new TournamentManagerImpl(new FileDao(APPLICATION_STORAGE_PATH, true)));
 
 	}
 

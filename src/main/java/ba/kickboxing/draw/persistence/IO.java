@@ -1,4 +1,4 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.persistence;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,6 +10,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import ba.kickboxing.draw.common.AgeCategory;
+import ba.kickboxing.draw.common.Discipline;
+import ba.kickboxing.draw.common.Player;
+import ba.kickboxing.draw.common.Sex;
+import ba.kickboxing.draw.common.TournamentKey;
+import ba.kickboxing.draw.common.WeightCategory;
 
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -26,7 +33,7 @@ import jxl.write.biff.RowsExceededException;
 
 public class IO {
 	private static CellFormat cellFormatDefault = initDefaultCellFormat();
-	private static List<String> columnTitles = Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol");
+	private static List<String> columnTitles = Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
 
 	public static List<Player> readFromTxt(String filePath) throws IOException {
 		List<Player> players = new ArrayList<Player>();
@@ -56,7 +63,10 @@ public class IO {
 			players.add(player);
 		}
 
+		reader.close();
+		
 		return players;
+		
 	}
 	
 	private static CellFormat initDefaultCellFormat() {
@@ -116,7 +126,7 @@ public class IO {
 	private static int getColumnIndex(String key) {
 		int index = -1;
 
-		if ("name".equals(key)) {
+		if ("nameSurname".equals(key)) {
 			index = 0;
 		} else if ("discipline".equals(key)) {
 			index = 1;
@@ -124,6 +134,10 @@ public class IO {
 			index = 2;
 		} else if ("sex".equals(key)) {
 			index = 3;
+		} else if ("ageCategory".equals(key)) {
+			index = 4;
+		} else if ("clubName".equals(key)) {
+			index = 5;
 		}
 
 		return index;

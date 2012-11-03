@@ -1,4 +1,4 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.business;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -6,7 +6,9 @@ import java.util.List;
 
 import jxl.write.WriteException;
 
+import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.persistence.DAO;
+import ba.kickboxing.draw.persistence.IO;
 
 public class TournamentManagerImpl implements TournamentManager {
 
@@ -24,7 +26,7 @@ public class TournamentManagerImpl implements TournamentManager {
 
 	@Override
 	public List<Player> listAllPlayers()  {
-		List<Player> allPlayers = Collections.EMPTY_LIST;
+		List<Player> allPlayers = Collections.emptyList();
 		try {
 			allPlayers = dao.listAllPlayers();
 		} catch (IOException e) {

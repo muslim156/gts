@@ -1,7 +1,9 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.business;
 
 import java.io.IOException;
 import java.util.List;
+
+import ba.kickboxing.draw.common.Player;
 
 import jxl.write.WriteException;
 

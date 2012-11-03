@@ -1,4 +1,4 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.common;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -35,7 +35,15 @@ public class Player {
 
 		for (Field field : fields) {
 			try {
-				dataMap.put(field.getName(), field.get(this));
+				Object value = null;
+				
+				if (CustomValueDefined.class.isAssignableFrom(field.getType())) {					
+					value = ((CustomValueDefined) field.get(this)).getCustomValue();
+				} else {
+					value = field.get(this);
+				}
+				
+				dataMap.put(field.getName(), value);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

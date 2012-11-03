@@ -1,6 +1,6 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.common;
 
-public enum WeightCategory {
+public enum WeightCategory implements CustomValueDefined {
 	LESS_THAN_81("-81"), GREATER_THAN_81("+81");
 	
 	private String value;
@@ -21,5 +21,10 @@ public enum WeightCategory {
 		} else {
 			throw new IllegalArgumentException("Unknown value for enum.");
 		}
+	}
+
+	@Override
+	public Object getCustomValue() {
+		return value;
 	}
 }

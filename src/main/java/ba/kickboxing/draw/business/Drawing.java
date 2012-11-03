@@ -1,4 +1,4 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.business;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import ba.kickboxing.draw.common.Player;
+import ba.kickboxing.draw.common.TournamentKey;
 
 public class Drawing {
 	private List<Player> players;	

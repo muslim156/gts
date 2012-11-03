@@ -1,6 +1,6 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.common;
 
-public enum Discipline {
+public enum Discipline implements CustomValueDefined {
 	//TODO Handle other languages/values better
 	FULLCONTACT("FULL CONTACT"), SEMICONTACT("SEMI CONTACT");
 	
@@ -22,5 +22,10 @@ public enum Discipline {
 		} else {
 			throw new IllegalArgumentException("Unknown value for enum.");
 		}
+	}
+
+	@Override
+	public Object getCustomValue() {
+		return value;
 	}
 }

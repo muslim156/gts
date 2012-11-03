@@ -1,10 +1,17 @@
-package ba.kickboxing.draw;
+package ba.kickboxing.draw.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.JOptionPane;
+
+import ba.kickboxing.draw.business.TournamentManager;
+import ba.kickboxing.draw.common.AgeCategory;
+import ba.kickboxing.draw.common.Discipline;
+import ba.kickboxing.draw.common.Player;
+import ba.kickboxing.draw.common.Sex;
+import ba.kickboxing.draw.common.WeightCategory;
 
 import jxl.write.WriteException;
 
@@ -16,6 +23,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5495625702638704722L;
 	private TournamentManager tournamentManager;
+	private String xlsPath = "zrijeb.xls";
 
 	/**
 	 * Creates new form MainFrame
@@ -232,7 +240,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	}
 
 	private void draw() throws WriteException, IOException {
-		tournamentManager.drawAndSave("zrijeb.xls");
+		tournamentManager.drawAndSave(xlsPath);
 	}
 
 	private void showMessage(String message, boolean isSuccessMsg) {
