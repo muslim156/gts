@@ -1,10 +1,15 @@
 package ba.kickboxing.draw.ui;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import ba.kickboxing.draw.business.TournamentManager;
 import ba.kickboxing.draw.common.AgeCategory;
@@ -25,6 +30,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	private static final long serialVersionUID = 5495625702638704722L;
 	private TournamentManager tournamentManager;
 	private String xlsPath = "zrijeb.xls";
+	private List<Component> clearableComponents = new ArrayList<Component>();
 
 	/**
 	 * Creates new form MainFrame
@@ -85,45 +91,51 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 	        jLabel1.setText("Ime i prezime");
 
 	        jTextField1.setColumns(30);
-
+	        clearableComponents.add(jTextField1);
+	        
 	        jLabel2.setText("Disciplina");
 
 	        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semi contact", "Light contact", "Full contact", "Low kick", "K1 rules" }));
+	        clearableComponents.add(jComboBox1);
 
-	        jLabel3.setText("Težišna kategorija");
+	        jLabel3.setText("Tezisna kategorija");
 
 	        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-81", "+81" }));
-
+	        clearableComponents.add(jComboBox2);
+	        
 	        jLabel4.setText("Uzrast");
 
 	        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kadet", "Junior", "Senior" }));
-
+	        clearableComponents.add(jComboBox3);
+	        
 	        jLabel5.setText("Naziv kluba");
 
 	        jTextField2.setColumns(30);
-
-	        jButton1.setText("Saèuvaj");
+	        clearableComponents.add(jTextField2);
+	        
+	        jButton1.setText("Sacuvaj");
 	        jButton1.addActionListener(this);
 
-	        jButton2.setText("Oèisti");
+	        jButton2.setText("Ocisti");
+	        jButton2.addActionListener(this);
 
 	        buttonGroup1.add(jRadioButton2);
-	        jRadioButton2.setText("Muški");
+	        jRadioButton2.setText("Muski");
 
 	        buttonGroup1.add(jRadioButton3);
-	        jRadioButton3.setText("Ženski");
+	        jRadioButton3.setText("Zenski");
 
 	        jLabel6.setText("Spol");
 
-	        jButton3.setText("Generiši žrijeb!");
+	        jButton3.setText("Generisi zrijeb!");
 	        jButton3.addActionListener(this);
 
 	        jMenu3.setText("Akcije");
 
-	        jMenuItem1.setText("Uèitaj turnir...");
+	        jMenuItem1.setText("Ucitaj turnir...");
 	        jMenu3.add(jMenuItem1);
 
-	        jMenuItem2.setText("Saèuvaj turnir");
+	        jMenuItem2.setText("Sacuvaj turnir");
 	        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                jMenuItem2ActionPerformed(evt);
@@ -225,20 +237,34 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 		if (e.getSource() == jButton1) {
 			try {
 				savePlayer();
-				showMessage("Uèesnik uspješno dodat!", true);
+				showMessage("Uï¿½esnik uspjeï¿½no dodat!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se greška prilikom dodavanja uèesnika:\n" + ex.getMessage(), false);
+				showMessage("Desila se greï¿½ka prilikom dodavanja uï¿½esnika:\n" + ex.getMessage(), false);
 			}
 			
 		} else if (e.getSource() == jButton3) {
 			try {
 				draw();
-				showMessage("Žrijeb uspješno generisan!", true);
+				showMessage("ï¿½rijeb uspjeï¿½no generisan!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se greška prilikom generisanja žrijeba:\n" + ex.getMessage(), false);
+				showMessage("Desila se greï¿½ka prilikom generisanja ï¿½rijeba:\n" + ex.getMessage(), false);
+			}
+		} else if (e.getSource() == jButton2) {
+			clearComponents();
+		}
+	}
+
+	private void clearComponents() {
+		for (Component c : clearableComponents) {
+			if (c instanceof JTextField) {
+				((JTextField) c).setText("");
+			} else if (c instanceof JComboBox) {
+				((JComboBox) c).setSelectedIndex(0);
 			}
 		}
 	}
+
+
 
 	private void draw() throws WriteException, IOException, BiffException {
 		tournamentManager.drawAndSave(xlsPath);
@@ -246,7 +272,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	private void showMessage(String message, boolean isSuccessMsg) {
 		JOptionPane.showMessageDialog(this, message, 
-				isSuccessMsg ? "Uspjeh" : "Greška", 
+				isSuccessMsg ? "Uspjeh" : "Greï¿½ka", 
 				isSuccessMsg ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
 

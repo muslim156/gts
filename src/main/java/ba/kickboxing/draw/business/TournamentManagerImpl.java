@@ -30,7 +30,6 @@ public class TournamentManagerImpl implements TournamentManager {
 		try {
 			allPlayers = dao.listAllPlayers();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		
