@@ -17,9 +17,9 @@ public class TournamentKey {
 
 	@Override
 	public String toString() {
-		return this.discipline.getCustomValue() + " | " 
-				+ this.ageCategory.getCustomValue() + " | "
-				+ this.weightCategory.getCustomValue() + " | " 
+		return this.discipline.getCustomValue() + " - " 
+				+ this.ageCategory.getCustomValue() + " - "
+				+ this.weightCategory.getCustomValue() + " - " 
 				+ this.sex;
 	}
 

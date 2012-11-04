@@ -11,13 +11,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import ba.kickboxing.draw.common.AgeCategory;
-import ba.kickboxing.draw.common.Discipline;
-import ba.kickboxing.draw.common.Player;
-import ba.kickboxing.draw.common.Sex;
-import ba.kickboxing.draw.common.TournamentKey;
-import ba.kickboxing.draw.common.WeightCategory;
-
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.format.Border;
@@ -30,9 +23,15 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+import ba.kickboxing.draw.common.AgeCategory;
+import ba.kickboxing.draw.common.Discipline;
+import ba.kickboxing.draw.common.Player;
+import ba.kickboxing.draw.common.Sex;
+import ba.kickboxing.draw.common.TournamentKey;
+import ba.kickboxing.draw.common.WeightCategory;
 
 public class IO {
-	private static CellFormat cellFormatDefault = initDefaultCellFormat();
+	public static CellFormat cellFormatDefault = initDefaultCellFormat();
 	private static List<String> columnTitles = Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
 
 	public static List<Player> readFromTxt(String filePath) throws IOException {
@@ -166,4 +165,5 @@ public class IO {
 		}
 
 	}
+
 }

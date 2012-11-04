@@ -13,6 +13,7 @@ import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.Sex;
 import ba.kickboxing.draw.common.WeightCategory;
 
+import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 
 /**
@@ -89,7 +90,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Semi contact", "Light contact", "Full contact", "Low kick", "K1 rules" }));
 
-	        jLabel3.setText("TeÅ¾iÅ¡na kategorija");
+	        jLabel3.setText("Težišna kategorija");
 
 	        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-81", "+81" }));
 
@@ -101,28 +102,28 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	        jTextField2.setColumns(30);
 
-	        jButton1.setText("SaÄuvaj");
+	        jButton1.setText("Saèuvaj");
 	        jButton1.addActionListener(this);
 
-	        jButton2.setText("OÄisti");
+	        jButton2.setText("Oèisti");
 
 	        buttonGroup1.add(jRadioButton2);
-	        jRadioButton2.setText("MuÅ¡ki");
+	        jRadioButton2.setText("Muški");
 
 	        buttonGroup1.add(jRadioButton3);
-	        jRadioButton3.setText("Å½enski");
+	        jRadioButton3.setText("Ženski");
 
 	        jLabel6.setText("Spol");
 
-	        jButton3.setText("GeneriÅ¡i Å¾rijeb!");
+	        jButton3.setText("Generiši žrijeb!");
 	        jButton3.addActionListener(this);
 
 	        jMenu3.setText("Akcije");
 
-	        jMenuItem1.setText("UÄitaj turnir...");
+	        jMenuItem1.setText("Uèitaj turnir...");
 	        jMenu3.add(jMenuItem1);
 
-	        jMenuItem2.setText("SaÄuvaj turnir");
+	        jMenuItem2.setText("Saèuvaj turnir");
 	        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                jMenuItem2ActionPerformed(evt);
@@ -224,28 +225,28 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 		if (e.getSource() == jButton1) {
 			try {
 				savePlayer();
-				showMessage("UÄesnik uspjeÅ¡no dodat!", true);
+				showMessage("Uèesnik uspješno dodat!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se greÅ¡ka prilikom dodavanja uÄesnika:\n" + ex.getMessage(), false);
+				showMessage("Desila se greška prilikom dodavanja uèesnika:\n" + ex.getMessage(), false);
 			}
 			
 		} else if (e.getSource() == jButton3) {
 			try {
 				draw();
-				showMessage("Å½rijeb uspjeÅ¡no generisan!", true);
+				showMessage("Žrijeb uspješno generisan!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se greÅ¡ka prilikom generisanja Å¾rijeba:\n" + ex.getMessage(), false);
+				showMessage("Desila se greška prilikom generisanja žrijeba:\n" + ex.getMessage(), false);
 			}
 		}
 	}
 
-	private void draw() throws WriteException, IOException {
+	private void draw() throws WriteException, IOException, BiffException {
 		tournamentManager.drawAndSave(xlsPath);
 	}
 
 	private void showMessage(String message, boolean isSuccessMsg) {
 		JOptionPane.showMessageDialog(this, message, 
-				isSuccessMsg ? "Uspjeh" : "GreÅ¡ka", 
+				isSuccessMsg ? "Uspjeh" : "Greška", 
 				isSuccessMsg ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
 

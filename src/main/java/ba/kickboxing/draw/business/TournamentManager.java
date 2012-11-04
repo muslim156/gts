@@ -5,6 +5,7 @@ import java.util.List;
 
 import ba.kickboxing.draw.common.Player;
 
+import jxl.read.biff.BiffException;
 import jxl.write.WriteException;
 
 public interface TournamentManager {
@@ -12,5 +13,5 @@ public interface TournamentManager {
 
 	List<Player> listAllPlayers();
 
-	void drawAndSave(String string) throws WriteException, IOException;
+	void drawAndSave(String string) throws WriteException, IOException, BiffException;
 }
