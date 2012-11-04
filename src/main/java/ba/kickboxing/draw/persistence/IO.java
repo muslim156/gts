@@ -16,6 +16,7 @@ import jxl.WorkbookSettings;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.CellFormat;
+import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
@@ -31,7 +32,7 @@ import ba.kickboxing.draw.common.TournamentKey;
 import ba.kickboxing.draw.common.WeightCategory;
 
 public class IO {
-	public static CellFormat cellFormatDefault = initDefaultCellFormat();
+	private static CellFormat cellFormatDefault = initDefaultCellFormat();
 	private static List<String> columnTitles = Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
 
 	public static List<Player> readFromTxt(String filePath) throws IOException {
@@ -164,6 +165,36 @@ public class IO {
 			System.out.println("Error saving file: " + e.toString());
 		}
 
+	}
+
+	public static void fillTemplate(Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException {
+		for (Entry<TournamentKey, List<Player>> entry : categoryMap.entrySet()) {
+			List<Player> sameCategoryPlayers = entry.getValue();
+			
+			Workbook workbook = Workbook.getWorkbook(new File("turnir.xls"));
+
+			String copiedFileName = "ZRIJEB-" + entry.getKey().toString() + ".xls"; 
+			WritableWorkbook copy = Workbook.createWorkbook(new File(copiedFileName), workbook);
+
+			WritableSheet sheet = copy.getSheet(0);
+
+			int columnIndex = 1;
+			int rowIndex = 4;
+
+			for (Player p : sameCategoryPlayers) {
+				Label label = new Label(columnIndex, rowIndex, p.getNameSurname(),
+						cellFormatDefault);
+				rowIndex += 2;
+				sheet.addCell(label);
+			}
+
+			try {
+				copy.write();
+				copy.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}		
 	}
 
 }
