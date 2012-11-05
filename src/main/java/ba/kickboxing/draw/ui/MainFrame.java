@@ -347,7 +347,7 @@ public class MainFrame extends javax.swing.JFrame {
         String weightCategory = (String) jComboBox2.getSelectedItem();
         String ageCategory = (String) jComboBox3.getSelectedItem();
         String clubName = jTextField2.getText();
-        Sex s = jRadioButton2.isSelected() ? Sex.M : Sex.F;
+        Sex s = jRadioButton1.isSelected() ? Sex.M : Sex.F;
 
         Player p = new Player(nameSurname, Discipline.getEnum(discipline.toUpperCase()),
                 WeightCategory.getEnum(weightCategory), AgeCategory.getEnum(ageCategory.toUpperCase()), s, clubName);
