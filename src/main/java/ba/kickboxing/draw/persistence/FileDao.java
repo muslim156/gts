@@ -22,9 +22,9 @@ public class FileDao implements DAO {
 	public void savePlayer(Player player) {
 		Writer out = null;
 		try {
-			out = new OutputStreamWriter(new FileOutputStream(fileName, append), "UTF-8");
-			out.write(System.getProperty("line.separator"));
+			out = new OutputStreamWriter(new FileOutputStream(fileName, append), "UTF-8");			
 			out.write(player.toString());
+			out.write(System.getProperty("line.separator"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
