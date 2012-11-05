@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.persistence.DAO;
 import ba.kickboxing.draw.persistence.IO;
@@ -37,7 +35,7 @@ public class TournamentManagerImpl implements TournamentManager {
 	}
 
 	@Override
-	public void drawAndSave(String outputFilePath) throws WriteException, IOException, BiffException {
+	public void drawAndSave(String outputFilePath) throws Exception {
 		List<Player> allPlayers = listAllPlayers();
 
 		Drawing drawing = new Drawing(allPlayers);

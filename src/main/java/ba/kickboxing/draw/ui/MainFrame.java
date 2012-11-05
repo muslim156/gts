@@ -353,7 +353,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setText(fullMessage);
     }
 
-    private void draw() throws WriteException, IOException, BiffException {
+    private void draw() throws Exception  {
         tournamentManager.drawAndSave(xlsDirectoryPath);
     }
 }
