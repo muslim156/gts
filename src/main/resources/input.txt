@@ -1,4 +1,0 @@
-Muhammed Ali|fullcontact|90|m
-Ahmed Ali|fullcontact|90|m
-Aisha Ali|fullcontact|90|f
-Kareem Ali|fullcontact|90|m
