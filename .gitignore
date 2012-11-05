@@ -2,5 +2,7 @@
 .classpath
 .project
 .settings
+target
 target/**/*
 test-dao.gts
+tmp.gts
