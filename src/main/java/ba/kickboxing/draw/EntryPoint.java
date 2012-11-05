@@ -6,7 +6,7 @@ import ba.kickboxing.draw.ui.MainFrame;
 
 
 public class EntryPoint {
-	private static final String APPLICATION_STORAGE_PATH = "test-dao.gts";
+	private static final String APPLICATION_STORAGE_PATH = "tmp.gts";
 	
 	public static void main(String[] args) throws Exception {
 		setLookAndFeel();
