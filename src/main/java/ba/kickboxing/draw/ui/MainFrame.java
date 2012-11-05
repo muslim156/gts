@@ -237,17 +237,17 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 		if (e.getSource() == jButton1) {
 			try {
 				savePlayer();
-				showMessage("U�esnik uspje�no dodat!", true);
+				showMessage("Ucesnik uspjesno dodat!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se gre�ka prilikom dodavanja u�esnika:\n" + ex.getMessage(), false);
+				showMessage("Desila se greska prilikom dodavanja ucesnika:\n" + ex.getMessage(), false);
 			}
 			
 		} else if (e.getSource() == jButton3) {
 			try {
 				draw();
-				showMessage("�rijeb uspje�no generisan!", true);
+				showMessage("Zrijeb uspjesno generisan!", true);
 			} catch (Exception ex) {
-				showMessage("Desila se gre�ka prilikom generisanja �rijeba:\n" + ex.getMessage(), false);
+				showMessage("Desila se greska prilikom generisanja zrijeba:\n" + ex.getMessage(), false);
 			}
 		} else if (e.getSource() == jButton2) {
 			clearComponents();
@@ -272,7 +272,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	private void showMessage(String message, boolean isSuccessMsg) {
 		JOptionPane.showMessageDialog(this, message, 
-				isSuccessMsg ? "Uspjeh" : "Gre�ka", 
+				isSuccessMsg ? "Uspjeh" : "Greska", 
 				isSuccessMsg ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.ERROR_MESSAGE);
 	}
 

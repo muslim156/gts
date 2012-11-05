@@ -33,6 +33,8 @@ import ba.kickboxing.draw.common.WeightCategory;
 
 public class IO {
 	private static CellFormat cellFormatDefault = initDefaultCellFormat();
+	private static CellFormat borderCellFormatDefault = initBorderCellFormat();
+	
 	private static List<String> columnTitles = Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
 
 	public static List<Player> readFromTxt(String filePath) throws IOException {
@@ -69,6 +71,22 @@ public class IO {
 		
 	}
 	
+	private static CellFormat initBorderCellFormat() {
+		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD);
+		WritableCellFormat cellFormatDefault = new WritableCellFormat(fontDefault);
+
+		try {
+			cellFormatDefault.setBorder(Border.BOTTOM, BorderLineStyle.THICK);
+			cellFormatDefault.setBorder(Border.LEFT, BorderLineStyle.THICK);
+			cellFormatDefault.setBorder(Border.RIGHT, BorderLineStyle.THICK);
+			cellFormatDefault.setBorder(Border.TOP, BorderLineStyle.THICK);
+		} catch (WriteException e) {
+			e.printStackTrace();
+		}
+
+		return cellFormatDefault;
+	}
+
 	private static CellFormat initDefaultCellFormat() {
 		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD);
 		WritableCellFormat cellFormatDefault = new WritableCellFormat(fontDefault);
@@ -182,8 +200,7 @@ public class IO {
 			int rowIndex = 4;
 
 			for (Player p : sameCategoryPlayers) {
-				Label label = new Label(columnIndex, rowIndex, p.getNameSurname(),
-						cellFormatDefault);
+				Label label = new Label(columnIndex, rowIndex, p.getNameSurname(), borderCellFormatDefault);
 				rowIndex += 2;
 				sheet.addCell(label);
 			}
