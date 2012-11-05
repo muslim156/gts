@@ -43,6 +43,6 @@ public class TournamentManagerImpl implements TournamentManager {
 		Drawing drawing = new Drawing(allPlayers);
 		drawing.draw();
 
-		IO.fillTemplate(drawing.getCategoryMap());
+		IO.fillTemplate(outputFilePath, drawing.getCategoryMap());
 	}
 }

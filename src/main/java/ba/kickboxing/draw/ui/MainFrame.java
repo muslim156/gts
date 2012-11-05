@@ -11,15 +11,14 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import jxl.read.biff.BiffException;
+import jxl.write.WriteException;
 import ba.kickboxing.draw.business.TournamentManager;
 import ba.kickboxing.draw.common.AgeCategory;
 import ba.kickboxing.draw.common.Discipline;
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.Sex;
 import ba.kickboxing.draw.common.WeightCategory;
-
-import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
 
 /**
 *
@@ -29,7 +28,9 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 5495625702638704722L;
 	private TournamentManager tournamentManager;
-	private String xlsPath = "zrijeb.xls";
+	
+	// the path to directory where output XLS is being saved.
+	private String xlsDirectoryPath = "";
 	private List<Component> clearableComponents = new ArrayList<Component>();
 
 	/**
@@ -267,7 +268,7 @@ public class MainFrame extends javax.swing.JFrame implements ActionListener {
 
 
 	private void draw() throws WriteException, IOException, BiffException {
-		tournamentManager.drawAndSave(xlsPath);
+		tournamentManager.drawAndSave(xlsDirectoryPath);
 	}
 
 	private void showMessage(String message, boolean isSuccessMsg) {

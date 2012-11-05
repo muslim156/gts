@@ -185,13 +185,13 @@ public class IO {
 
 	}
 
-	public static void fillTemplate(Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException {
+	public static void fillTemplate(String outputFilePath, Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException {
 		for (Entry<TournamentKey, List<Player>> entry : categoryMap.entrySet()) {
 			List<Player> sameCategoryPlayers = entry.getValue();
 			
 			Workbook workbook = Workbook.getWorkbook(new File("turnir.xls"));
 
-			String copiedFileName = "ZRIJEB-" + entry.getKey().toString() + ".xls"; 
+			String copiedFileName = outputFilePath.concat(generateFileName(entry.getKey())); 
 			WritableWorkbook copy = Workbook.createWorkbook(new File(copiedFileName), workbook);
 
 			WritableSheet sheet = copy.getSheet(0);
@@ -212,6 +212,10 @@ public class IO {
 				e.printStackTrace();
 			}
 		}		
+	}
+
+	private static String generateFileName(TournamentKey key) {
+		return "zrijeb - " + key.toString().toLowerCase() + ".xls";
 	}
 
 }
