@@ -1,15 +1,18 @@
 package ba.kickboxing.draw.ui;
 
-import ba.kickboxing.draw.business.TournamentManager;
-import ba.kickboxing.draw.common.*;
 import java.awt.Component;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
+
+import ba.kickboxing.draw.business.TournamentManager;
+import ba.kickboxing.draw.common.AgeCategory;
+import ba.kickboxing.draw.common.Discipline;
+import ba.kickboxing.draw.common.Player;
+import ba.kickboxing.draw.common.Sex;
+import ba.kickboxing.draw.common.WeightCategory;
 
 /*
  * To change this template, choose Tools | Templates and open the template in
@@ -21,7 +24,11 @@ import jxl.write.WriteException;
  */
 public class MainFrame extends javax.swing.JFrame {
 
-    private String xlsDirectoryPath = "";
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8429946520955287483L;
+	private String xlsDirectoryPath = "";
     private TournamentManager tournamentManager;
     private List<Component> clearableComponents = new ArrayList<Component>();
 
@@ -98,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low kick", "K1 rules" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "K1 Rules", "Low kick", "Full contact", "Kick light", "Light contact", "Semi Contact", "Muzicke forme" }));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "-78", "-81", "+81" }));
 

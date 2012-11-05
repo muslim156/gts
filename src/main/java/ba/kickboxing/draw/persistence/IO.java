@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -224,15 +223,8 @@ public class IO {
 
 			WritableSheet sheet = copy.getSheet(0);
 
-			int columnIndex = 1;
-			int rowIndex = 4;
-
-			for (Player p : sameCategoryPlayers) {
-				Label label = new Label(columnIndex, rowIndex,
-						p.getNameSurname(), borderCellFormatDefault);
-				rowIndex += 2;
-				sheet.addCell(label);
-			}
+			writeTournamentData(sheet, entry.getKey());
+			writePlayersToTemplate(sheet, sameCategoryPlayers);
 
 			try {
 				copy.write();
@@ -241,6 +233,31 @@ public class IO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private static void writeTournamentData(WritableSheet sheet, TournamentKey key) throws RowsExceededException, WriteException {
+		Label label = new Label(6, 0, key.getAgeCategory().getValue(), cellFormatDefault);
+		sheet.addCell(label);
+		
+		label = new Label(6, 1, key.getSex().getValue(), cellFormatDefault);
+		sheet.addCell(label);
+		
+		label = new Label(9, 0, key.getDiscipline().getValue(), cellFormatDefault);
+		sheet.addCell(label);
+		
+		label = new Label(9, 1, key.getWeightCategory().getValue(), cellFormatDefault);
+		sheet.addCell(label);
+	}
+
+	private static void writePlayersToTemplate(WritableSheet sheet, List<Player> players) throws RowsExceededException, WriteException {
+		int columnIndex = 1;
+		int rowIndex = 4;
+
+		for (Player p : players) {
+			Label label = new Label(columnIndex, rowIndex, p.getNameSurname(), borderCellFormatDefault);
+			rowIndex += 2;
+			sheet.addCell(label);
+		}		
 	}
 
 	private static InputStream getTemplateXlsStream() {
