@@ -8,11 +8,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import ba.kickboxing.draw.business.TournamentManager;
-import ba.kickboxing.draw.common.AgeCategory;
-import ba.kickboxing.draw.common.Discipline;
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.Sex;
-import ba.kickboxing.draw.common.WeightCategory;
 
 /*
  * To change this template, choose Tools | Templates and open the template in
