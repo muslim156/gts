@@ -18,7 +18,9 @@ public class TournamentManagerImpl implements TournamentManager {
     private DAO dao;
     private Map<String, TournamentCategoryInfo> tournamentDisciplinesData = new HashMap<String, TournamentCategoryInfo>();
 
-    {    	
+    {    
+    	
+    	// Add data for Light contact
     	TournamentCategoryInfo lightContact = new TournamentCategoryInfo();
     	
     	lightContact.put("Kadeti", "M", Arrays.asList("-32","-37","-42","-47","-52","-57","-63","-69","+69"));
@@ -32,7 +34,18 @@ public class TournamentManagerImpl implements TournamentManager {
     	
     	tournamentDisciplinesData.put("Light contact", lightContact);
     	
+    	// Add data for kick light
+    	TournamentCategoryInfo kickLight = new TournamentCategoryInfo();
     	
+    	kickLight.put("Juniori", "M", Arrays.asList("-51","-57","-63","-69","-74","-79","-84","-89","+89"));
+		kickLight.put("Juniori", "F", Arrays.asList("-50","-55","-60","-65","-70","+70"));
+    	
+		kickLight.put("Seniori", "M", Arrays.asList("-57","-63","-69","-74","-79","-84","-89","-94","+94"));
+		kickLight.put("Seniori", "F", Arrays.asList("-50","-55","-60","-65","-70","+70"));
+    	
+    	tournamentDisciplinesData.put("Kick light", kickLight);
+    	
+    	// Add data for low kick
     	TournamentCategoryInfo lowKick = new TournamentCategoryInfo();
     	
     	lowKick.put("Mladji juniori", "M", Arrays.asList("-39","-42","-45","-48","-51","-54","-57","-60","-63","-66","-69","-74","-79","-84","+84"));
