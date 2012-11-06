@@ -27,12 +27,8 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 import ba.kickboxing.draw.EntryPoint;
-import ba.kickboxing.draw.common.AgeCategory;
-import ba.kickboxing.draw.common.Discipline;
 import ba.kickboxing.draw.common.Player;
-import ba.kickboxing.draw.common.Sex;
 import ba.kickboxing.draw.common.TournamentKey;
-import ba.kickboxing.draw.common.WeightCategory;
 
 public class IO {
 
@@ -47,28 +43,13 @@ public class IO {
 		BufferedReader reader = new BufferedReader(new FileReader(new File(
 				filePath)));
 
-		String name = null;
-		Discipline disc = null;
-		WeightCategory weightCategory = null;
-		AgeCategory ageCategory = null;
-		Sex sex = null;
-		String clubName = null;
-
 		Player player = null;
 
 		for (String line = reader.readLine(); line != null; line = reader
 				.readLine()) {
 			String[] splitted = line.split("\\|");
 
-			name = splitted[0];
-			disc = Discipline.valueOf(splitted[1].toUpperCase());
-			weightCategory = WeightCategory.valueOf(splitted[2].toUpperCase());
-			ageCategory = AgeCategory.valueOf(splitted[3].toUpperCase());
-			sex = Sex.valueOf(splitted[4].toUpperCase());
-			clubName = splitted[5];
-
-			player = new Player(name, disc, weightCategory, ageCategory, sex,
-					clubName);
+			player = new Player(splitted[0], splitted[1], splitted[2], splitted[3], splitted[4], splitted[5]);
 			players.add(player);
 		}
 
@@ -236,16 +217,16 @@ public class IO {
 	}
 
 	private static void writeTournamentData(WritableSheet sheet, TournamentKey key) throws RowsExceededException, WriteException {
-		Label label = new Label(6, 0, key.getAgeCategory().getValue(), cellFormatDefault);
+		Label label = new Label(6, 0, key.getAgeCategory(), cellFormatDefault);
 		sheet.addCell(label);
 		
-		label = new Label(6, 1, key.getSex().getValue(), cellFormatDefault);
+		label = new Label(6, 1, key.getSex(), cellFormatDefault);
 		sheet.addCell(label);
 		
-		label = new Label(9, 0, key.getDiscipline().getValue(), cellFormatDefault);
+		label = new Label(9, 0, key.getDiscipline(), cellFormatDefault);
 		sheet.addCell(label);
 		
-		label = new Label(9, 1, key.getWeightCategory().getValue(), cellFormatDefault);
+		label = new Label(9, 1, key.getWeightCategory(), cellFormatDefault);
 		sheet.addCell(label);
 	}
 

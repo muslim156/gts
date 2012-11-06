@@ -6,14 +6,15 @@ import java.util.Map;
 
 public class Player {
 	private String nameSurname;
-	private Discipline discipline;
-	private WeightCategory weight;
-	private AgeCategory ageCategory;
-	private Sex sex;
+	private String discipline;
+	private String weight;
+	private String ageCategory;
+	private String sex;
 
 	private String clubName;
 
-	public Player(String nameSurname, Discipline discipline, WeightCategory weight, AgeCategory ageCategory, Sex sex, String clubName) {
+	public Player(String nameSurname, String discipline, String weight,
+			String ageCategory, String sex, String clubName) {
 		super();
 		this.nameSurname = nameSurname;
 		this.discipline = discipline;
@@ -22,12 +23,13 @@ public class Player {
 		this.sex = sex;
 		this.clubName = clubName;
 	}
-	
+
 	@Override
-	public String toString() {	
-		return nameSurname + "|" + discipline + "|" + weight + "|" + ageCategory + "|" + sex + "|" + clubName;
+	public String toString() {
+		return nameSurname + "|" + discipline + "|" + weight + "|"
+				+ ageCategory + "|" + sex + "|" + clubName;
 	}
-	
+
 	public Map<String, Object> getDataMap() {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 
@@ -36,13 +38,14 @@ public class Player {
 		for (Field field : fields) {
 			try {
 				Object value = null;
-				
-				if (CustomValueDefined.class.isAssignableFrom(field.getType())) {					
-					value = ((CustomValueDefined) field.get(this)).getCustomValue();
+
+				if (CustomValueDefined.class.isAssignableFrom(field.getType())) {
+					value = ((CustomValueDefined) field.get(this))
+							.getCustomValue();
 				} else {
 					value = field.get(this);
 				}
-				
+
 				dataMap.put(field.getName(), value);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
@@ -64,35 +67,35 @@ public class Player {
 		this.nameSurname = nameSurname;
 	}
 
-	public Discipline getDiscipline() {
+	public String getDiscipline() {
 		return discipline;
 	}
 
-	public void setDiscipline(Discipline discipline) {
+	public void setDiscipline(String discipline) {
 		this.discipline = discipline;
 	}
 
-	public WeightCategory getWeight() {
+	public String getWeight() {
 		return weight;
 	}
 
-	public void setWeight(WeightCategory weight) {
+	public void setWeight(String weight) {
 		this.weight = weight;
 	}
 
-	public AgeCategory getAgeCategory() {
+	public String getAgeCategory() {
 		return ageCategory;
 	}
 
-	public void setAgeCategory(AgeCategory ageCategory) {
+	public void setAgeCategory(String ageCategory) {
 		this.ageCategory = ageCategory;
 	}
 
-	public Sex getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Sex sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
@@ -103,4 +106,5 @@ public class Player {
 	public void setClubName(String clubName) {
 		this.clubName = clubName;
 	}
+
 }

@@ -2,24 +2,24 @@ package ba.kickboxing.draw.common;
 
 public class TournamentKey {
 
-	private Discipline discipline;
-	private WeightCategory weightCategory;
-	private AgeCategory ageCategory;
-	private Sex sex;
+	private String discipline;
+	private String weightCategory;
+	private String ageCategory;
+	private String sex;
 
-	public TournamentKey(Discipline discipline, AgeCategory ageCategory, WeightCategory weight, Sex sex) {
+	public TournamentKey(String discipline, String ageCategory, String weight, String sex) {
 		super();
-		this.discipline = discipline;
-		this.weightCategory = weight;
-		this.ageCategory = ageCategory;
-		this.sex = sex;
+		this.discipline = discipline.toUpperCase();
+		this.weightCategory = weight.toUpperCase();
+		this.ageCategory = ageCategory.toUpperCase();
+		this.sex = sex.toUpperCase();
 	}
 
 	@Override
 	public String toString() {
-		return this.discipline.getCustomValue() + " - " 
-				+ this.ageCategory.getCustomValue() + " - "
-				+ this.weightCategory.getCustomValue() + " - " 
+		return this.discipline + " - " 
+				+ this.ageCategory + " - "
+				+ this.weightCategory + " - " 
 				+ this.sex;
 	}
 
@@ -46,35 +46,35 @@ public class TournamentKey {
 				.toString()).hashCode();
 	}
 
-	public Discipline getDiscipline() {
+	public String getDiscipline() {
 		return discipline;
 	}
 
-	public void setDiscipline(Discipline discipline) {
+	public void setDiscipline(String discipline) {
 		this.discipline = discipline;
 	}
 
-	public WeightCategory getWeightCategory() {
+	public String getWeightCategory() {
 		return weightCategory;
 	}
 
-	public void setWeightCategory(WeightCategory weightCategory) {
+	public void setWeightCategory(String weightCategory) {
 		this.weightCategory = weightCategory;
 	}
 
-	public AgeCategory getAgeCategory() {
+	public String getAgeCategory() {
 		return ageCategory;
 	}
 
-	public void setAgeCategory(AgeCategory ageCategory) {
+	public void setAgeCategory(String ageCategory) {
 		this.ageCategory = ageCategory;
 	}
 
-	public Sex getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Sex sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 }
