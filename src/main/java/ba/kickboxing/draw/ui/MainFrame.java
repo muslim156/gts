@@ -254,24 +254,43 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void onSavePlayer(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onSavePlayer
         try {
-            savePlayer();
-            showMessage("Ucesnik uspjesno dodat!", true);
+        	if (!allFieldsSet()) {
+        		showMessage("Nisu sva polja popunjena", false);
+        	} else {
+        		savePlayer();
+                clearForm();
+                showMessage("Ucesnik uspjesno dodat!", true);
+        	}            
         } catch (Exception ex) {
             showMessage("Desila se greska prilikom dodavanja ucesnika:\n" + ex.getMessage(), false);
         }
     }//GEN-LAST:event_onSavePlayer
 
-    private void onClearForm(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onClearForm
-        for (Component c : clearableComponents) {
-            if (c instanceof JTextField) {
-                ((JTextField) c).setText("");
-            } else if (c instanceof JComboBox) {
-                ((JComboBox) c).setSelectedIndex(0);
-            }
-        }
+    private boolean allFieldsSet() {
+    	boolean atLeastOneFieldEmpty = true;
+    	
+    	if ("".equals(jTextField1.getText()) || "".equals(jTextField2.getText())) {
+    		atLeastOneFieldEmpty = false; 
+    	}
+    	
+		return !atLeastOneFieldEmpty;
+	}
+
+	private void onClearForm(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onClearForm
+        clearForm();
     }//GEN-LAST:event_onClearForm
 
-    private void onDraw(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDraw
+	private void clearForm() {
+		for (Component c : clearableComponents) {
+			if (c instanceof JTextField) {
+				((JTextField) c).setText("");
+			} else if (c instanceof JComboBox) {
+				((JComboBox) c).setSelectedIndex(0);
+			}
+		}
+	}
+
+	private void onDraw(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDraw
         try {
             draw();
             showMessage("Zrijeb uspjesno generisan!", true);
