@@ -8,14 +8,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jxl.write.WriteException;
+
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.TournamentCategoryInfo;
+import ba.kickboxing.draw.common.TournamentKey;
 import ba.kickboxing.draw.persistence.DAO;
 import ba.kickboxing.draw.persistence.IO;
 
 public class TournamentManagerImpl implements TournamentManager {
 
     private DAO dao;
+    private String outputDirectoryPath = "";
+    
     private Map<String, TournamentCategoryInfo> tournamentDisciplinesData = new HashMap<String, TournamentCategoryInfo>();
 
     {    
@@ -65,7 +70,15 @@ public class TournamentManagerImpl implements TournamentManager {
         this.dao = dao;
     }
 
-    @Override
+    public String getOutputDirectoryPath() {
+		return outputDirectoryPath;
+	}
+
+	public void setOutputDirectoryPath(String outputDirectoryPath) {
+		this.outputDirectoryPath = outputDirectoryPath;
+	}
+
+	@Override
     public void savePlayer(Player p) {
         dao.savePlayer(p);
     }
@@ -110,4 +123,13 @@ public class TournamentManagerImpl implements TournamentManager {
 
         return tournamentDiscipline != null ? tournamentDiscipline.getWeightCategories(age, sex) : Collections.EMPTY_LIST;
     }
+
+	@Override
+	public void savePlayers(List<Player> players) throws WriteException, IOException {
+		Map<TournamentKey, List<Player>> map = new HashMap<TournamentKey, List<Player>>();
+		map.put(new TournamentKey("Svi", "Svi", "Svi", "Svi"), players);
+		
+		IO.writeToXls(map, outputDirectoryPath + "svi-prijavljeni.xls", false);
+	}
+
 }

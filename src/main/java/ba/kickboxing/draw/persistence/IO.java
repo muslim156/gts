@@ -99,22 +99,27 @@ public class IO {
 		return cellFormatDefault;
 	}
 
-	public static void writeToXls(String xlsPath,
-			Map<TournamentKey, List<Player>> map) throws IOException,
+	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) throws IOException,
 			WriteException {
 		// create workbook and fonts
 		WorkbookSettings ws = new WorkbookSettings();
 		ws.setLocale(new Locale("en", "EN"));
 
-		WritableWorkbook workbook = Workbook.createWorkbook(new File(xlsPath),
-				ws);
+		WritableWorkbook workbook = Workbook.createWorkbook(new File(xlsPath), ws);
 
+		// create sheet
+		WritableSheet sheet = null;
+		if (!separateSheets) {
+			sheet = workbook.createSheet("Svi prijavljeni ucesnici", 0);
+		}
+		
 		int sheetNo = 0;
 		for (Entry<TournamentKey, List<Player>> entry : map.entrySet()) {
 			// create sheet
-			WritableSheet sheet = workbook.createSheet(entry.getKey()
-					.toString(), sheetNo++);
-
+			if (separateSheets) {
+				sheet = workbook.createSheet(entry.getKey().toString(), sheetNo++);
+			}
+			
 			writeHeader(sheet);
 
 			writePlayers(sheet, 1, entry.getValue());

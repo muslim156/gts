@@ -1,5 +1,9 @@
 package ba.kickboxing.draw;
 
+import java.awt.SplashScreen;
+
+import javax.swing.UIManager;
+
 import ba.kickboxing.draw.business.TournamentManagerImpl;
 import ba.kickboxing.draw.persistence.FileDao;
 import ba.kickboxing.draw.ui.MainFrame;
@@ -8,11 +12,19 @@ import ba.kickboxing.draw.ui.MainFrame;
 public class EntryPoint {
 	private static final String APPLICATION_STORAGE_PATH = "tmp.gts";
 	
+	// SplashScreen-Image: src/main/resources/git.png
 	public static void main(String[] args) throws Exception {
+		SplashScreen sc = SplashScreen.getSplashScreen();
+
+		if (sc == null) {
+			System.out.println("splash screen is null");
+		}
+		Thread.sleep(3000);
 		setLookAndFeel();
 
 		// new UI();
-		new MainFrame(new TournamentManagerImpl(new FileDao(APPLICATION_STORAGE_PATH, true)));
+		new MainFrame(new TournamentManagerImpl(new FileDao(
+				APPLICATION_STORAGE_PATH, true)));
 
 	}
 
@@ -29,12 +41,7 @@ public class EntryPoint {
 		 * /tutorial/uiswing/lookandfeel/plaf.html
 		 */
 		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException ex) {
 			java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(
 					java.util.logging.Level.SEVERE, null, ex);

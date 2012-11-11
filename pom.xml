@@ -14,7 +14,7 @@
 			<version>2.6.12</version>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<plugins>
 			<plugin>
@@ -28,6 +28,9 @@
 						<manifest>
 							<mainClass>ba.kickboxing.draw.EntryPoint</mainClass>
 						</manifest>
+						<manifestEntries>
+							<SplashScreen-Image>gazija.jpg</SplashScreen-Image>
+						</manifestEntries>
 					</archive>
 				</configuration>
 			</plugin>

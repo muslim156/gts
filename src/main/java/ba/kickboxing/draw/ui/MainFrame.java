@@ -1,6 +1,7 @@
 package ba.kickboxing.draw.ui;
 
 import java.awt.Component;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,10 +41,15 @@ public class MainFrame extends javax.swing.JFrame {
         this.tournamentManager = tournamentManager;
 
         initComponents();
+        
+        setResizable(false);
 
         registerClearableComponents();
 
         setVisible(true);
+        
+        setLocationRelativeTo(null);
+        
 
     }
 
@@ -269,7 +275,7 @@ public class MainFrame extends javax.swing.JFrame {
     private boolean allFieldsSet() {
     	boolean allFieldsSet = false;
     	
-    	if (!"".equals(jTextField1.getText()) && "".equals(jTextField2.getText())) {
+    	if (!"".equals(jTextField1.getText()) && !"".equals(jTextField2.getText())) {
     		allFieldsSet = true; 
     	}
     	
@@ -292,6 +298,7 @@ public class MainFrame extends javax.swing.JFrame {
 
 	private void onDraw(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onDraw
         try {
+        	tournamentManager.savePlayers(tournamentManager.listAllPlayers());
             draw();
             showMessage("Zrijeb uspjesno generisan!", true);
         } catch (Exception ex) {
