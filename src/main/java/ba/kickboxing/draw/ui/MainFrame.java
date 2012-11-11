@@ -1,7 +1,6 @@
 package ba.kickboxing.draw.ui;
 
 import java.awt.Component;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
