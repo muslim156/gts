@@ -267,13 +267,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_onSavePlayer
 
     private boolean allFieldsSet() {
-    	boolean atLeastOneFieldEmpty = true;
+    	boolean allFieldsSet = false;
     	
-    	if ("".equals(jTextField1.getText()) || "".equals(jTextField2.getText())) {
-    		atLeastOneFieldEmpty = false; 
+    	if (!"".equals(jTextField1.getText()) && "".equals(jTextField2.getText())) {
+    		allFieldsSet = true; 
     	}
     	
-		return !atLeastOneFieldEmpty;
+		return allFieldsSet;
 	}
 
 	private void onClearForm(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_onClearForm
