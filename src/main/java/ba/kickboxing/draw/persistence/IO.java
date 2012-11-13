@@ -32,10 +32,16 @@ import ba.kickboxing.draw.common.TournamentKey;
 
 public class IO {
 
+	private static final int playersStartColumnIndex = 1;
+	private static int playersStartRowIndex = 4;
+	private static int playersFieldsStep = 2;
+	
 	private static CellFormat cellFormatDefault = initDefaultCellFormat();
 	private static CellFormat borderCellFormatDefault = initBorderCellFormat();
 	private static List<String> columnTitles = Arrays.asList("Ime i prezime",
 			"Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
+	
+	
 
 	public static List<Player> readFromTxt(String filePath) throws IOException {
 		List<Player> players = new ArrayList<Player>();
@@ -201,8 +207,9 @@ public class IO {
 	public static void fillTemplate(String outputFilePath, Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException, URISyntaxException {
 		for (Entry<TournamentKey, List<Player>> entry : categoryMap.entrySet()) {
 			List<Player> sameCategoryPlayers = entry.getValue();
-
-			Workbook workbook = Workbook.getWorkbook(getTemplateXlsStream());
+			int numOfPlayers = sameCategoryPlayers != null ? sameCategoryPlayers.size() : 0;
+			
+			Workbook workbook = Workbook.getWorkbook(getTemplateXlsStream(numOfPlayers));
 
 			String copiedFileName = outputFilePath.concat(generateFileName(entry.getKey()));
 			WritableWorkbook copy = Workbook.createWorkbook(new File(copiedFileName), workbook);
@@ -236,17 +243,17 @@ public class IO {
 	}
 
 	private static void writePlayersToTemplate(WritableSheet sheet, List<Player> players) throws RowsExceededException, WriteException {
-		int columnIndex = 1;
-		int rowIndex = 4;
+		int columnIndex = playersStartColumnIndex;
+		int rowIndex = playersStartRowIndex;
 
 		for (Player p : players) {
 			Label label = new Label(columnIndex, rowIndex, p.getNameSurname(), borderCellFormatDefault);
-			rowIndex += 2;
+			rowIndex += playersFieldsStep;
 			sheet.addCell(label);
 		}		
 	}
 
-	private static InputStream getTemplateXlsStream() {
+	private static InputStream getTemplateXlsStream(int numOfPlayers) {
 		return EntryPoint.class.getClassLoader().getResourceAsStream("turnir.xls");
 	}
 
