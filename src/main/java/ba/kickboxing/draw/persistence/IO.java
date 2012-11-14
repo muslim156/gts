@@ -14,10 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jxl.read.biff.BiffException;
-import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
-
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -89,7 +85,7 @@ public class IO {
 	}
 
 	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) 
-			throws IOException, WriteException {
+			throws IOException {
 		
 		Workbook wb = new HSSFWorkbook();
 		Sheet sheet = null;;
@@ -165,7 +161,7 @@ public class IO {
 		return index;
 	}
 
-	public static void fillTemplate(String outputFilePath, Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException, URISyntaxException {
+	public static void fillTemplate(String outputFilePath, Map<TournamentKey, List<Player>> categoryMap) throws IOException, URISyntaxException {
 		for (Entry<TournamentKey, List<Player>> entry : categoryMap.entrySet()) {			
 			List<Player> sameCategoryPlayers = entry.getValue();
 			

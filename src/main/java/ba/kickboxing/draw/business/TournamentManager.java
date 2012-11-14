@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import jxl.write.WriteException;
-
 import ba.kickboxing.draw.common.Player;
 
 public interface TournamentManager {
@@ -13,7 +11,7 @@ public interface TournamentManager {
 	
 	String getOutputDirectoryPath();
 	
-	void savePlayers(List<Player> players) throws WriteException, IOException;
+	void savePlayers(List<Player> players) throws IOException;
 	
 	void savePlayer(Player p);
 

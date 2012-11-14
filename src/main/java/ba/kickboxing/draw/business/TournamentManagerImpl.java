@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jxl.write.WriteException;
-
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.TournamentCategoryInfo;
 import ba.kickboxing.draw.common.TournamentKey;
@@ -125,7 +123,7 @@ public class TournamentManagerImpl implements TournamentManager {
     }
 
 	@Override
-	public void savePlayers(List<Player> players) throws WriteException, IOException {
+	public void savePlayers(List<Player> players) throws IOException {
 		Map<TournamentKey, List<Player>> map = new HashMap<TournamentKey, List<Player>>();
 		map.put(new TournamentKey("Svi", "Svi", "Svi", "Svi"), players);
 		
