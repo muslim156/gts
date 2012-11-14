@@ -19,7 +19,7 @@ public class EntryPoint {
 		if (sc == null) {
 			System.out.println("splash screen is null");
 		}
-		Thread.sleep(3000);
+//		Thread.sleep(3000);
 		setLookAndFeel();
 
 		// new UI();

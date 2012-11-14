@@ -2,6 +2,7 @@ package ba.kickboxing.draw.persistence;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,11 +27,8 @@ import ba.kickboxing.draw.common.TournamentKey;
 
 public class IO {
 	
-//	private static CellFormat cellFormatDefault = initDefaultCellFormat();
-//	private static CellFormat cellFormatPlayer = initCellFormatPlayer();
-	
-	private static List<String> columnTitles = Arrays.asList("Ime i prezime",
-			"Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
+	private static List<String> columnTitles = 
+			Arrays.asList("Ime i prezime", "Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
 	
 	
 	private static String templateBasename = "turnir-";
@@ -87,13 +85,14 @@ public class IO {
 	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) 
 			throws IOException {
 		
-		Workbook wb = new HSSFWorkbook();
-		Sheet sheet = null;;
+		InputStream is = getAllContestantsTemplate();
+		Workbook wb = new HSSFWorkbook(is);
+		Sheet sheet = wb.getSheetAt(0);
 		
 		// create sheet
-		if (!separateSheets) {
-			sheet = wb.createSheet("Svi prijavljeni ucesnici");
-		}
+		// if (!separateSheets) {
+		// sheet = wb.createSheet("Svi prijavljeni ucesnici");
+		// }
 
 		for (Entry<TournamentKey, List<Player>> entry : map.entrySet()) {
 			// create sheet
@@ -111,6 +110,10 @@ public class IO {
 		wb.write(fileOut);
 		fileOut.close();
 
+	}
+
+	private static InputStream getAllContestantsTemplate() throws FileNotFoundException {
+		return new FileInputStream("src/main/resources/svi-prijavljeni.xls");
 	}
 
 	private static void writePlayers(Sheet sheet, int startAt, List<Player> players) {
@@ -136,7 +139,7 @@ public class IO {
 		int rowIndex = 0;
 
 		for (String columnTitle : columnTitles) {
-			write(sheet, new Index(columnIndex++, rowIndex), columnTitle);
+			write(sheet, new Index(rowIndex, columnIndex++), columnTitle);
 		}
 		
 	}
@@ -243,6 +246,6 @@ public class IO {
 	}
 
 	private static String generateFileName(TournamentKey key) {
-		return "zrijeb - " + key.toString().toLowerCase() + ".xls";
+		return key.toString().toLowerCase() + ".xls";
 	}
 }
