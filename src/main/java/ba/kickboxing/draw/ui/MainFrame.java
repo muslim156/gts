@@ -101,6 +101,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Status: ");
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("Muski");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onMaleSelected(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Zenski");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                onFemaleSelected(evt);
+            }
+        });
+        
         jTextField1.setColumns(30);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,23 +142,6 @@ public class MainFrame extends javax.swing.JFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(tournamentManager.getWeightCategories((String) jComboBox1.getSelectedItem(), (String) jComboBox3.getSelectedItem(), jRadioButton1.isSelected() ? "M" : "F").toArray()));
         
         jTextField2.setColumns(30);
-
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("Muski");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onMaleSelected(evt);
-            }
-        });
-
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("Zenski");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                onFemaleSelected(evt);
-            }
-        });
 
         jButton1.setText("Sacuvaj");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
