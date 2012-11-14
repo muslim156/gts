@@ -43,13 +43,13 @@ public class IO {
 				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 2) {
-				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(9, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 3 || i == 4) {
 				templateInfo = new TemplateInfo(templateBasename + "b.xls", new Index(3, 1), new Index(4, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 5 || i == 6) {
-				templateInfo = new TemplateInfo(templateBasename + "c.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "c.xls", new Index(3, 1), new Index(3, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 7 || i == 8) {
 				templateInfo = new TemplateInfo(templateBasename + "d.xls", new Index(3, 1), new Index(16, 0));
