@@ -89,11 +89,6 @@ public class IO {
 		Workbook wb = new HSSFWorkbook(is);
 		Sheet sheet = wb.getSheetAt(0);
 		
-		// create sheet
-		// if (!separateSheets) {
-		// sheet = wb.createSheet("Svi prijavljeni ucesnici");
-		// }
-
 		for (Entry<TournamentKey, List<Player>> entry : map.entrySet()) {
 			// create sheet
 			if (separateSheets) {
@@ -113,7 +108,7 @@ public class IO {
 	}
 
 	private static InputStream getAllContestantsTemplate() throws FileNotFoundException {
-		return new FileInputStream("src/main/resources/svi-prijavljeni.xls");
+		return loadResourceAsStream("svi-prijavljeni.xls");
 	}
 
 	private static void writePlayers(Sheet sheet, int startAt, List<Player> players) {
@@ -242,7 +237,11 @@ public class IO {
 	private static InputStream getTemplateXlsStream(int numOfPlayers) {
 		TemplateInfo templateInfo = templateMap.get(numOfPlayers);
 		
-		return EntryPoint.class.getClassLoader().getResourceAsStream(templateInfo.getName());
+		return loadResourceAsStream(templateInfo.getName());		
+	}
+
+	private static InputStream loadResourceAsStream(String resourceName) {
+		return EntryPoint.class.getClassLoader().getResourceAsStream(resourceName);		
 	}
 
 	private static String generateFileName(TournamentKey key) {
