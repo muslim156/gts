@@ -52,7 +52,7 @@ public class IO {
 				templateInfo = new TemplateInfo(templateBasename + "c.xls", new Index(3, 1), new Index(3, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 7 || i == 8) {
-				templateInfo = new TemplateInfo(templateBasename + "d.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "d.xls", new Index(3, 1), new Index(2, 0));
 				map.put(i, templateInfo);		
 			} 
 		}
