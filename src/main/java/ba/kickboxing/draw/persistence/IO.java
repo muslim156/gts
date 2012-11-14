@@ -1,8 +1,8 @@
 package ba.kickboxing.draw.persistence;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -11,33 +11,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.format.Alignment;
-import jxl.format.Border;
-import jxl.format.BorderLineStyle;
-import jxl.format.CellFormat;
-import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
-import jxl.write.Label;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+
 import ba.kickboxing.draw.EntryPoint;
 import ba.kickboxing.draw.common.Player;
 import ba.kickboxing.draw.common.TournamentKey;
 
 public class IO {
 	
-	private static CellFormat cellFormatDefault = initDefaultCellFormat();
-	private static CellFormat cellFormatPlayer = initCellFormatPlayer();
+//	private static CellFormat cellFormatDefault = initDefaultCellFormat();
+//	private static CellFormat cellFormatPlayer = initCellFormatPlayer();
 	
 	private static List<String> columnTitles = Arrays.asList("Ime i prezime",
 			"Disciplina", "Tezina", "Spol", "Uzrasna kategorija", "Klub");
@@ -58,7 +52,7 @@ public class IO {
 				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(9, 1), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 3 || i == 4) {
-				templateInfo = new TemplateInfo(templateBasename + "b.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "b.xls", new Index(3, 1), new Index(4, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 5 || i == 6) {
 				templateInfo = new TemplateInfo(templateBasename + "c.xls", new Index(3, 1), new Index(16, 0));
@@ -94,87 +88,37 @@ public class IO {
 
 	}
 
-	private static CellFormat initDefaultCellFormat() {
-		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 10,
-				WritableFont.BOLD);
-		WritableCellFormat cellFormatDefault = new WritableCellFormat(
-				fontDefault);
-
-		try {
-			cellFormatDefault.setAlignment(Alignment.CENTRE);
-			cellFormatDefault.setVerticalAlignment(VerticalAlignment.CENTRE);
-			
-			// using cellFormatDefault.setBorder(Border.ALL, BorderLineStyle.THICK)
-			// doesn't work
-			setBorders(cellFormatDefault, BorderLineStyle.THIN);
-		} catch (WriteException e) {
-			e.printStackTrace();
-		}
-
-		return cellFormatDefault;
-	}
-
-	
-	private static CellFormat initCellFormatPlayer() {
-		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 12,
-				WritableFont.BOLD);
-		WritableCellFormat cellFormatPlayer = new WritableCellFormat(
-				fontDefault);
-
-		try {
-			cellFormatPlayer.setWrap(true);
-			cellFormatPlayer.setAlignment(Alignment.CENTRE);
-			cellFormatPlayer.setVerticalAlignment(VerticalAlignment.CENTRE);
-			
-			// using cellFormatDefault.setBorder(Border.ALL, BorderLineStyle.THICK)
-			// doesn't work
-			setBorders(cellFormatPlayer, BorderLineStyle.THIN);
-		} catch (WriteException e) {
-			e.printStackTrace();
-		}
-
-		return cellFormatPlayer;
-	}
-
-	private static void setBorders(WritableCellFormat cellFormatDefault,
-			BorderLineStyle borderLineStyle) throws WriteException {
-		cellFormatDefault.setBorder(Border.BOTTOM, borderLineStyle);
-		cellFormatDefault.setBorder(Border.LEFT, borderLineStyle);
-		cellFormatDefault.setBorder(Border.RIGHT, borderLineStyle);
-		cellFormatDefault.setBorder(Border.TOP, borderLineStyle);
-	}
-
-	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) throws IOException,
-			WriteException {
-		// create workbook and fonts
-		WorkbookSettings ws = new WorkbookSettings();
-		ws.setLocale(new Locale("en", "EN"));
-
-		WritableWorkbook workbook = Workbook.createWorkbook(new File(xlsPath), ws);
-
-		// create sheet
-		WritableSheet sheet = null;
-		if (!separateSheets) {
-			sheet = workbook.createSheet("Svi prijavljeni ucesnici", 0);
-		}
+	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) 
+			throws IOException, WriteException {
 		
-		int sheetNo = 0;
+		Workbook wb = new HSSFWorkbook();
+		Sheet sheet = null;;
+		
+		// create sheet
+		if (!separateSheets) {
+			sheet = wb.createSheet("Svi prijavljeni ucesnici");
+		}
+
 		for (Entry<TournamentKey, List<Player>> entry : map.entrySet()) {
 			// create sheet
 			if (separateSheets) {
-				sheet = workbook.createSheet(entry.getKey().toString(), sheetNo++);
+				sheet = wb.createSheet(entry.getKey().toString());
 			}
-			
+
 			writeHeader(sheet);
 
 			writePlayers(sheet, 1, entry.getValue());
 		}
-		writeSafely(workbook);
+		
+		// Write the output to a file
+		FileOutputStream fileOut = new FileOutputStream(xlsPath);
+		wb.write(fileOut);
+		fileOut.close();
 
 	}
 
-	private static void writePlayers(WritableSheet sheet, int startAt,
-			List<Player> players) throws RowsExceededException, WriteException {
+	private static void writePlayers(Sheet sheet, int startAt, List<Player> players) {
+
 		if (players != null && !players.isEmpty()) {
 			int rowIndex = startAt;
 
@@ -185,15 +129,20 @@ public class IO {
 
 	}
 
-	private static void writePlayer(WritableSheet sheet, int rowIndex,
-			Player player) throws RowsExceededException, WriteException {
-		Label label = null;
-
+	private static void writePlayer(Sheet sheet, int rowIndex, Player player) {
 		for (Entry<String, Object> entry : player.getDataMap().entrySet()) {
-			label = new Label(getColumnIndex(entry.getKey()), rowIndex, entry.getValue().toString(), cellFormatDefault);
-			sheet.addCell(label);
+			write(sheet, new Index(rowIndex, getColumnIndex(entry.getKey())), entry.getValue().toString());
 		}
+	}
 
+	private static void writeHeader(Sheet sheet) {
+		int columnIndex = 0;
+		int rowIndex = 0;
+
+		for (String columnTitle : columnTitles) {
+			write(sheet, new Index(columnIndex++, rowIndex), columnTitle);
+		}
+		
 	}
 
 	private static int getColumnIndex(String key) {
@@ -216,72 +165,30 @@ public class IO {
 		return index;
 	}
 
-	private static void writeHeader(WritableSheet sheet)
-			throws RowsExceededException, WriteException {
-		Label label = null;
-
-		int columnIndex = 0;
-		int rowIndex = 0;
-
-		for (String columnTitle : columnTitles) {
-			label = new Label(columnIndex++, rowIndex, columnTitle,
-					cellFormatDefault);
-			sheet.addCell(label);
-		}
-	}
-
-	private static void writeSafely(WritableWorkbook workbook) {
-		try {
-			workbook.write();
-			workbook.close();
-		} catch (IOException e) {
-			System.out.println("Error saving file: " + e.toString());
-		} catch (WriteException e) {
-			System.out.println("Error saving file: " + e.toString());
-		}
-
-	}
-
 	public static void fillTemplate(String outputFilePath, Map<TournamentKey, List<Player>> categoryMap) throws BiffException, IOException, RowsExceededException, WriteException, URISyntaxException {
 		for (Entry<TournamentKey, List<Player>> entry : categoryMap.entrySet()) {			
 			List<Player> sameCategoryPlayers = entry.getValue();
 			
 			int numOfPlayers = sameCategoryPlayers != null ? sameCategoryPlayers.size() : 0;
 
-			Workbook workbook = Workbook.getWorkbook(getTemplateXlsStream(numOfPlayers));
-
-			String copiedFileName = outputFilePath.concat(generateFileName(entry.getKey()));
-			WritableWorkbook copy = Workbook.createWorkbook(new File(copiedFileName), workbook);
-
-			WritableSheet sheet = copy.getSheet(0);
-
+			InputStream is = getTemplateXlsStream(numOfPlayers);
+			
+			Workbook wb = new HSSFWorkbook(is);
+			Sheet sheet = wb.getSheetAt(0);
+			
 			writeTournamentData(sheet, entry.getKey());
 			writePlayersToTemplate(sheet, sameCategoryPlayers);
+			
+			// Write the output to a file
+			FileOutputStream fileOut = new FileOutputStream(outputFilePath.concat(generateFileName(entry.getKey())));
+			wb.write(fileOut);
+			fileOut.close();
 
-			try {
-				copy.write();
-				copy.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
+		
+	private static void writePlayersToTemplate(Sheet sheet, List<Player> players) {
 
-	private static void writeTournamentData(WritableSheet sheet, TournamentKey key) throws RowsExceededException, WriteException {
-		Label label = new Label(4, 0, key.getAgeCategory(), cellFormatDefault);
-		sheet.addCell(label);
-		
-		label = new Label(4, 1, key.getSex(), cellFormatDefault);
-		sheet.addCell(label);
-		
-		label = new Label(7, 0, key.getDiscipline(), cellFormatDefault);
-		sheet.addCell(label);
-		
-		label = new Label(7, 1, key.getWeightCategory(), cellFormatDefault);
-		sheet.addCell(label);
-	}
-
-	private static void writePlayersToTemplate(WritableSheet sheet, List<Player> players) throws RowsExceededException, WriteException {
 		int numOfPlayers = players != null ? players.size() : 0;
 		TemplateInfo templateInfo = templateMap.get(numOfPlayers);
 		
@@ -290,13 +197,47 @@ public class IO {
 		Index playersFieldsStep = templateInfo.getStep();
 		
 		for (Player p : players) {
-			Label label = new Label(columnIndex, rowIndex, p.getTournamentCard(), cellFormatPlayer);
+			write(sheet, new Index(rowIndex, columnIndex), p.getTournamentCard());
 			
 			columnIndex += playersFieldsStep.getColumn();
 			rowIndex += playersFieldsStep.getRow();
-			
-			sheet.addCell(label);
 		}		
+		
+	}
+
+	private static void writeTournamentData(Sheet sheet, TournamentKey key) {
+		write(sheet, new Index(0, 4), key.getAgeCategory());
+		write(sheet, new Index(1, 4), key.getSex());
+		
+		write(sheet, new Index(0, 7), key.getDiscipline());
+		write(sheet, new Index(1, 7), key.getWeightCategory());
+	}
+
+	private static void write(Sheet sheet, Index index, String content) {
+		Row row = getCreateRow(sheet, index.getRow()); 
+		
+		Cell cell = getCreateCell(row, index.getColumn());
+		
+		cell.setCellType(Cell.CELL_TYPE_STRING);
+		cell.setCellValue(content);		
+	}
+
+	private static Cell getCreateCell(Row row, int column) {
+		Cell cell = row.getCell(column);
+		if (cell == null) {
+			cell = row.createCell(column);
+		}
+		
+		return cell;
+	}
+
+	private static Row getCreateRow(Sheet sheet, int rowNumber) {
+		Row row = sheet.getRow(rowNumber);		
+		if (row == null) {
+			row = sheet.createRow(rowNumber);
+		}
+		
+		return row;
 	}
 
 	private static InputStream getTemplateXlsStream(int numOfPlayers) {
