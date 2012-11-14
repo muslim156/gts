@@ -55,7 +55,7 @@ public class IO {
 				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 2) {
-				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(9, 1), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 3 || i == 4) {
 				templateInfo = new TemplateInfo(templateBasename + "b.xls", new Index(3, 1), new Index(16, 0));
@@ -122,6 +122,7 @@ public class IO {
 				fontDefault);
 
 		try {
+			cellFormatPlayer.setWrap(true);
 			cellFormatPlayer.setAlignment(Alignment.CENTRE);
 			cellFormatPlayer.setVerticalAlignment(VerticalAlignment.CENTRE);
 			
@@ -189,8 +190,7 @@ public class IO {
 		Label label = null;
 
 		for (Entry<String, Object> entry : player.getDataMap().entrySet()) {
-			label = new Label(getColumnIndex(entry.getKey()), rowIndex, entry
-					.getValue().toString(), cellFormatDefault);
+			label = new Label(getColumnIndex(entry.getKey()), rowIndex, entry.getValue().toString(), cellFormatDefault);
 			sheet.addCell(label);
 		}
 
@@ -290,7 +290,7 @@ public class IO {
 		Index playersFieldsStep = templateInfo.getStep();
 		
 		for (Player p : players) {
-			Label label = new Label(columnIndex, rowIndex, p.getNameSurname(), cellFormatPlayer);
+			Label label = new Label(columnIndex, rowIndex, p.getTournamentCard(), cellFormatPlayer);
 			
 			columnIndex += playersFieldsStep.getColumn();
 			rowIndex += playersFieldsStep.getRow();

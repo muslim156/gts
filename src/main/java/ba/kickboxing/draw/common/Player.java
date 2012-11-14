@@ -40,8 +40,7 @@ public class Player {
 				Object value = null;
 
 				if (CustomValueDefined.class.isAssignableFrom(field.getType())) {
-					value = ((CustomValueDefined) field.get(this))
-							.getCustomValue();
+					value = ((CustomValueDefined) field.get(this)).getCustomValue();
 				} else {
 					value = field.get(this);
 				}
@@ -105,6 +104,10 @@ public class Player {
 
 	public void setClubName(String clubName) {
 		this.clubName = clubName;
+	}
+
+	public String getTournamentCard() {
+		return getNameSurname() + " - " + getClubName();
 	}
 
 }
