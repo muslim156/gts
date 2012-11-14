@@ -3,7 +3,6 @@ package ba.kickboxing.draw.persistence;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -53,19 +52,19 @@ public class IO {
 		
 		for (int i = 1; i <= 8; i++) {
 			if (i == 1) {
-				templateInfo = new TemplateInfo(templateBasename + "a-2.xls", new Index(11, 2), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 2) {
-				templateInfo = new TemplateInfo(templateBasename + "a-2.xls", new Index(11, 2), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(11, 2), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 3 || i == 4) {
-				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "b.xls", new Index(3, 1), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 5 || i == 6) {
-				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "c.xls", new Index(3, 1), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} else if (i == 7 || i == 8) {
-				templateInfo = new TemplateInfo(templateBasename + "a.xls", new Index(3, 1), new Index(16, 0));
+				templateInfo = new TemplateInfo(templateBasename + "d.xls", new Index(3, 1), new Index(16, 0));
 				map.put(i, templateInfo);		
 			} 
 		}
@@ -95,34 +94,6 @@ public class IO {
 
 	}
 
-	private static CellFormat initCellFormatPlayer() {
-		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 12,
-				WritableFont.BOLD);
-		WritableCellFormat cellFormatPlayer = new WritableCellFormat(
-				fontDefault);
-
-		try {
-			cellFormatPlayer.setAlignment(Alignment.CENTRE);
-			cellFormatPlayer.setVerticalAlignment(VerticalAlignment.CENTRE);
-			
-			setBorders(cellFormatPlayer, BorderLineStyle.THIN);
-		} catch (WriteException e) {
-			e.printStackTrace();
-		}
-
-		return cellFormatPlayer;
-	}
-
-	// using cellFormatDefault.setBorder(Border.ALL, BorderLineStyle.THICK)
-	// doesn't work
-	private static void setBorders(WritableCellFormat cellFormatDefault,
-			BorderLineStyle borderLineStyle) throws WriteException {
-		cellFormatDefault.setBorder(Border.BOTTOM, borderLineStyle);
-		cellFormatDefault.setBorder(Border.LEFT, borderLineStyle);
-		cellFormatDefault.setBorder(Border.RIGHT, borderLineStyle);
-		cellFormatDefault.setBorder(Border.TOP, borderLineStyle);
-	}
-
 	private static CellFormat initDefaultCellFormat() {
 		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 10,
 				WritableFont.BOLD);
@@ -133,12 +104,43 @@ public class IO {
 			cellFormatDefault.setAlignment(Alignment.CENTRE);
 			cellFormatDefault.setVerticalAlignment(VerticalAlignment.CENTRE);
 			
+			// using cellFormatDefault.setBorder(Border.ALL, BorderLineStyle.THICK)
+			// doesn't work
 			setBorders(cellFormatDefault, BorderLineStyle.THIN);
 		} catch (WriteException e) {
 			e.printStackTrace();
 		}
 
 		return cellFormatDefault;
+	}
+
+	
+	private static CellFormat initCellFormatPlayer() {
+		WritableFont fontDefault = new WritableFont(WritableFont.ARIAL, 12,
+				WritableFont.BOLD);
+		WritableCellFormat cellFormatPlayer = new WritableCellFormat(
+				fontDefault);
+
+		try {
+			cellFormatPlayer.setAlignment(Alignment.CENTRE);
+			cellFormatPlayer.setVerticalAlignment(VerticalAlignment.CENTRE);
+			
+			// using cellFormatDefault.setBorder(Border.ALL, BorderLineStyle.THICK)
+			// doesn't work
+			setBorders(cellFormatPlayer, BorderLineStyle.THIN);
+		} catch (WriteException e) {
+			e.printStackTrace();
+		}
+
+		return cellFormatPlayer;
+	}
+
+	private static void setBorders(WritableCellFormat cellFormatDefault,
+			BorderLineStyle borderLineStyle) throws WriteException {
+		cellFormatDefault.setBorder(Border.BOTTOM, borderLineStyle);
+		cellFormatDefault.setBorder(Border.LEFT, borderLineStyle);
+		cellFormatDefault.setBorder(Border.RIGHT, borderLineStyle);
+		cellFormatDefault.setBorder(Border.TOP, borderLineStyle);
 	}
 
 	public static void writeToXls(Map<TournamentKey, List<Player>> map, String xlsPath, boolean separateSheets) throws IOException,
